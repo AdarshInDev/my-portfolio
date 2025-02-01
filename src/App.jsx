@@ -121,9 +121,6 @@ const AnimatedRoutes = () => {
 
 //learning github with me
 
-// hello
-
-// hello
 
 
 //hnnji kyaa haal chal
