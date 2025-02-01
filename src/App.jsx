@@ -119,13 +119,15 @@ const AnimatedRoutes = () => {
   );
 };
 
+//learning github
+
 function App() {
   return (
     <Router>
       <ScrollToTop />
       <div className="min-h-screen bg-primary text-textPrimary">
         <Navbar />
-        <main className="container mx-auto px-4 pt-16">
+        <main className="container px-4 pt-16 mx-auto">
           <AnimatedRoutes />
         </main>
       </div>
