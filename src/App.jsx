@@ -58,7 +58,7 @@ const PageTransition = ({ children }) => {
   );
 };
 
-// Animated routes component with scroll handling adarsh
+// Animated routes component with scroll handling adarsh pradhan
 const AnimatedRoutes = () => {
   const location = useLocation();
 
