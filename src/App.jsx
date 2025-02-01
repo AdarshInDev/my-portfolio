@@ -121,6 +121,8 @@ const AnimatedRoutes = () => {
 
 //learning github with me
 
+
+//hnnji kyaa haal chal
 function App() {
   return (
     <Router>
