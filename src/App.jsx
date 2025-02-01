@@ -19,7 +19,7 @@ import ProjectDetails from "./components/route_component/ProjectDetails";
 
 // Enhanced ScrollToTop component
 const ScrollToTop = () => {
-  const [name,setNmae]=useState()
+  const [name,setName]=useState()
   const { pathname } = useLocation();
   useEffect(() => {
     // Force immediate scroll reset
