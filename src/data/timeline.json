@@ -1,0 +1,44 @@
+[
+    {
+        "year": "2018",
+        "title": "Ignition",
+        "subtitle": "Started Coding Journey",
+        "description": "Wrote my first line of code in Python. The universe of logic opened up.",
+        "icon": "Ignition"
+    },
+    {
+        "year": "2019",
+        "title": "First Orbit",
+        "subtitle": "Frontend Internship @ Tech Corp",
+        "description": "Learned the gravity of production code. Built my first React interfaces.",
+        "icon": "Orbit"
+    },
+    {
+        "year": "2020",
+        "title": "Academic Sector",
+        "subtitle": "Bachelor's Degree in CSE",
+        "description": "Deep dived into algorithms, data structures, and computer architecture.",
+        "icon": "Academy"
+    },
+    {
+        "year": "2021",
+        "title": "Launch",
+        "subtitle": "Full Stack Developer @ StartupX",
+        "description": "Deployed scalable systems. Mastered the MERN stack.",
+        "icon": "Launch"
+    },
+    {
+        "year": "2022",
+        "title": "Command",
+        "subtitle": "Led Development Team",
+        "description": "Managed a squadron of 5 developers. Focused on architecture and code quality.",
+        "icon": "Command"
+    },
+    {
+        "year": "2023-Present",
+        "title": "Interstellar",
+        "subtitle": "Freelancing & Consulting",
+        "description": "Architecting solutions for global clients. Exploring AI and Web3 frontiers.",
+        "icon": "Star"
+    }
+]

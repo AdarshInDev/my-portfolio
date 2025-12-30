@@ -1,0 +1,87 @@
+[
+    {
+        "id": "project1",
+        "title": "AI-Powered Task Manager",
+        "description": "Smart task management app with AI suggestions and real-time collaboration. Automates prioritization and workflow.",
+        "tech": [
+            "React",
+            "Node.js",
+            "MongoDB",
+            "Socket.io",
+            "OpenAI"
+        ],
+        "image": "https://placehold.co/600x400/0a0a12/00f0ff?text=AI+Task+Manager",
+        "year": "2024",
+        "link": "https://ai-task-manager.com"
+    },
+    {
+        "id": "project2",
+        "title": "E-Learning Platform",
+        "description": "Comprehensive learning solution with live video streaming, interactive quizzes, and student analytics.",
+        "tech": [
+            "Next.js",
+            "Firebase",
+            "WebRTC",
+            "Stripe"
+        ],
+        "image": "https://placehold.co/600x400/0a0a12/7000ff?text=E-Learning",
+        "year": "2024",
+        "link": "https://e-learning-platform.com"
+    },
+    {
+        "id": "project3",
+        "title": "Health & Fitness Tracker",
+        "description": "Cross-platform mobile app for tracking workouts, nutrition, and health metrics with custom plans.",
+        "tech": [
+            "Flutter",
+            "Firebase",
+            "Node.js",
+            "TensorFlow"
+        ],
+        "image": "https://placehold.co/600x400/0a0a12/ffffff?text=Fitness+Tracker",
+        "year": "2023",
+        "link": "https://fitness-tracker.com"
+    },
+    {
+        "id": "project4",
+        "title": "Smart Home Automation",
+        "description": "IoT-based system for intelligent device control, energy monitoring, and automated scheduling.",
+        "tech": [
+            "React Native",
+            "Node.js",
+            "MQTT",
+            "Docker"
+        ],
+        "image": "https://placehold.co/600x400/0a0a12/00f0ff?text=Smart+Home",
+        "year": "2023",
+        "link": "https://smart-home.com"
+    },
+    {
+        "id": "project5",
+        "title": "Social Media Analytics",
+        "description": "Real-time analytics dashboard with sentiment analysis and competitor tracking across platforms.",
+        "tech": [
+            "Vue.js",
+            "Python",
+            "FastAPI",
+            "PostgreSQL"
+        ],
+        "image": "https://placehold.co/600x400/0a0a12/7000ff?text=Social+Analytics",
+        "year": "2022",
+        "link": "https://social-analytics.com"
+    },
+    {
+        "id": "project6",
+        "title": "AI Image Generator",
+        "description": "Generative AI platform for creating and editing images using state-of-the-art machine learning models.",
+        "tech": [
+            "React",
+            "Python",
+            "PyTorch",
+            "AWS"
+        ],
+        "image": "https://placehold.co/600x400/0a0a12/ffffff?text=AI+Generator",
+        "year": "2022",
+        "link": "https://ai-image-generator.com"
+    }
+]
