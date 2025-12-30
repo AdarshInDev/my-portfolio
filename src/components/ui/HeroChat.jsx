@@ -5,7 +5,16 @@ import { useNavigate } from 'react-router-dom';
 import { getChatResponse } from '../../services/gemini';
 
 const HeroChat = () => {
-    const [isOpen, setIsOpen] = useState(true); // Default open in Hero
+    const [isOpen, setIsOpen] = useState(window.innerWidth >= 1024); // Default open on Desktop, closed on Mobile
+
+    // Listen for resize to adjust default behavior
+    useEffect(() => {
+        const handleResize = () => {
+            if (window.innerWidth >= 1024) setIsOpen(true);
+        };
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
     const [messages, setMessages] = useState([
         { role: 'model', text: "System Online. I am Adarsh's AI. Ask me about his skills or projects." }
     ]);
@@ -59,9 +68,10 @@ const HeroChat = () => {
         <motion.button
             initial={{ scale: 0 }} animate={{ scale: 1 }}
             onClick={() => setIsOpen(true)}
-            className="fixed bottom-8 right-8 p-4 bg-cyan-500 rounded-full shadow-[0_0_20px_rgba(0,240,255,0.5)] z-40 text-black hover:scale-110 transition-transform"
+            className="w-full lg:w-auto flex items-center justify-center gap-3 p-4 lg:p-4 bg-cyan-900/20 border border-cyan-500/30 rounded-xl lg:rounded-full lg:bg-cyan-500 lg:shadow-[0_0_20px_rgba(0,240,255,0.5)] z-40 text-cyan-400 lg:text-black hover:bg-cyan-500/30 lg:hover:bg-cyan-400 transition-all"
         >
             <FaRobot size={24} />
+            <span className="lg:hidden font-mono text-sm uppercase tracking-widest">Initialise AI Link</span>
         </motion.button>
     );
 
@@ -69,8 +79,15 @@ const HeroChat = () => {
         <motion.div
             initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
-            className="w-full max-w-md bg-black/40 backdrop-blur-md border border-white/10 rounded-2xl overflow-hidden flex flex-col h-[400px] shadow-[0_0_30px_rgba(0,0,0,0.5)] relative"
+            className="w-full lg:max-w-md bg-black/60 lg:bg-black/40 backdrop-blur-md border border-white/10 rounded-2xl overflow-hidden flex flex-col h-[350px] lg:h-[400px] shadow-[0_0_30px_rgba(0,0,0,0.5)] relative"
         >
+            {/* Mobile Close Button */}
+            <button
+                onClick={() => setIsOpen(false)}
+                className="lg:hidden absolute top-4 right-4 z-50 text-gray-400 hover:text-white"
+            >
+                ✕
+            </button>
             {/* Decorative Grid */}
             <div className="absolute inset-0 bg-[linear-gradient(rgba(0,240,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(0,240,255,0.03)_1px,transparent_1px)] [background-size:20px_20px] pointer-events-none" />
 

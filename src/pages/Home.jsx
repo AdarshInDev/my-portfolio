@@ -76,7 +76,8 @@ const Home = () => {
                 </motion.div>
 
                 {/* Chat Module */}
-                <div className="absolute right-0 top-1/2 -translate-y-1/2 hidden lg:block mr-12 z-40">
+                {/* Chat Module */}
+                <div className="w-full mt-12 lg:mt-0 lg:w-auto lg:absolute lg:right-0 lg:top-1/2 lg:-translate-y-1/2 lg:mr-12 z-40 relative">
                     <HeroChat />
                 </div>
 
