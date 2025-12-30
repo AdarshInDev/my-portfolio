@@ -4,15 +4,20 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: "#0A192F",      // Deep space blue
-        secondary: "#64FFDA",    // Cyan accent
-        tertiary: "#8892B0",     // Muted blue
-        textPrimary: "#CCD6F6",  // Light blue text
-        textSecondary: "#8892B0", // Muted blue text
-        darkGray: "#112240",     // Darker blue
-        lightGray: "#233554",    // Lighter blue
-        lightNavy: "#112240",    // Card background
-        lightestNavy: "#1E3A8A"  // Border color
+        space: "#030305",
+        nebula: "#0a0a12",
+        cyan: {
+          400: "#00f0ff",
+        },
+        purple: {
+          600: "#7000ff",
+        },
+        primary: "#0A192F",      // Keep legacy for safety
+        secondary: "#64FFDA",    // Keep legacy for safety
+      },
+      fontFamily: {
+        heading: ['Space Grotesk', 'sans-serif'],
+        body: ['Outfit', 'sans-serif'],
       },
       animation: {
         'float': 'float 6s ease-in-out infinite',

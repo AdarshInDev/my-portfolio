@@ -1,117 +1,136 @@
-import { motion } from "framer-motion";
-import { useState } from "react";
-import { HiMenuAlt3, HiX } from "react-icons/hi";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from 'react';
+import { FaGithub, FaLinkedin, FaSearch } from 'react-icons/fa';
+import { RiCloseLine, RiMenu4Line } from 'react-icons/ri';
+import { Link, useLocation } from 'react-router-dom';
+import GlobalSearch from '../ui/GlobalSearch';
+
+const NavLink = ({ to, children, isActive }) => (
+  <Link
+    to={to}
+    className={`relative px-4 py-2 text-sm uppercase tracking-wider transition-colors duration-300
+      ${isActive ? 'text-cyan-400' : 'text-gray-400 hover:text-white'}
+    `}
+  >
+    {children}
+    {isActive && (
+      <span className="absolute bottom-0 left-0 w-full h-0.5 bg-cyan-400 shadow-[0_0_10px_#00f0ff]" />
+    )}
+  </Link>
+);
+
+const SocialLink = ({ href, icon: Icon }) => (
+  <a
+    href={href}
+    target="_blank"
+    rel="noreferrer"
+    className="text-gray-400 hover:text-cyan-400 transition-colors duration-300"
+  >
+    <Icon size={20} />
+  </a>
+);
 
 const Navbar = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const location = useLocation();
 
-  const menuVariants = {
-    open: { opacity: 1, x: 0 },
-    closed: { opacity: 0, x: "100%" },
-  };
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const navLinks = [
+    { name: 'Mission', path: '/' },
+    { name: 'Trajectory', path: '/about' },
+    { name: 'Discoveries', path: '/projects' },
+    { name: 'Arsenal', path: '/skills' },
+    { name: 'Audio Logs', path: '/music' },
+    { name: 'Transmission', path: '/contact' },
+  ];
 
   return (
-    <motion.nav
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      className="fixed w-full bg-primary/90 backdrop-blur-sm shadow-lg z-50"
-    >
-      <div className="max-w-6xl mx-auto px-4">
-        <div className="flex items-center justify-between h-16">
-          <Link
-            to="/"
-            className="text-secondary font-mono text-xl font-bold group"
-          >
-            <span className="text-textPrimary group-hover:text-secondary transition-colors">
-              &lt;
-            </span>
-            <span className="group-hover:text-textPrimary transition-colors">
-              AdarshInDev
-            </span>
-            <span className="text-textPrimary group-hover:text-secondary transition-colors">
-              /&gt;
-            </span>
+    <>
+      <nav
+        className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 border-b border-transparent
+          ${isScrolled ? 'glass-panel py-4' : 'bg-transparent py-6'}
+        `}
+      >
+        <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
+          {/* Logo / Identity */}
+          <Link to="/" className="text-2xl font-bold tracking-tighter text-white">
+            Adarsh<span className="text-cyan-400">InDev</span>
           </Link>
 
-          {/* Desktop Menu */}
-          <div className="hidden md:flex items-center space-x-8">
-            <Link to="/" className="nav-link">
-              Home
-            </Link>
-            <Link to="/projects" className="nav-link">
-              Projects
-            </Link>
-            <Link to="/music" className="nav-link">
-              Music
-            </Link>
-            <Link to="/contact" className="nav-link">
-              Contact
-            </Link>
-            <a
-              href="/resume.pdf"
-              className="btn-outline text-sm"
-              target="_blank"
-              rel="noopener noreferrer"
+          {/* Desktop Navigation */}
+          <div className="hidden md:flex items-center space-x-6">
+            {/* Search Trigger */}
+            <button
+              onClick={() => setIsSearchOpen(true)}
+              className="p-2 text-gray-400 hover:text-cyan-400 hover:scale-110 transition-all"
+              title="AI Command Search"
             >
-              Resume
-            </a>
+              <FaSearch size={18} />
+            </button>
+            <div className="h-4 w-px bg-white/10" />
+            <div className="flex space-x-4">
+              <SocialLink href="https://github.com" icon={FaGithub} />
+              <SocialLink href="https://linkedin.com" icon={FaLinkedin} />
+            </div>
           </div>
 
-          {/* Mobile Menu Button */}
-          <button
-            className="md:hidden text-textPrimary hover:text-secondary transition-colors"
-            onClick={() => setIsOpen(!isOpen)}
-          >
-            {isOpen ? <HiX size={24} /> : <HiMenuAlt3 size={24} />}
-          </button>
+          {/* Mobile Toggle */}
+          <div className="md:hidden flex items-center gap-4">
+            <button
+              onClick={() => setIsSearchOpen(true)}
+              className="text-gray-400 hover:text-cyan-400"
+            >
+              <FaSearch size={20} />
+            </button>
+            <button
+              className="text-white hover:text-cyan-400 transition-colors"
+              onClick={() => setIsMobileMenuOpen(true)}
+            >
+              <RiMenu4Line size={28} />
+            </button>
+          </div>
         </div>
-      </div>
+      </nav>
 
-      {/* Mobile Menu */}
-      <motion.div
-        initial="closed"
-        animate={isOpen ? "open" : "closed"}
-        variants={menuVariants}
-        className="md:hidden fixed top-16 right-0 bottom-0 w-3/4 bg-lightNavy p-6"
+      {/* Global AI Search Overlay */}
+      <GlobalSearch
+        isOpen={isSearchOpen}
+        onClose={() => setIsSearchOpen(false)}
+      />
+
+      {/* Mobile Menu Overlay */}
+      <div
+        className={`fixed inset-0 z-[60] bg-black/95 backdrop-blur-xl transition-transform duration-500 flex flex-col justify-center items-center space-y-8
+          ${isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full'}
+        `}
       >
-        <div className="flex flex-col items-center space-y-6">
-          <Link to="/" className="nav-link" onClick={() => setIsOpen(false)}>
-            Home
-          </Link>
+        <button
+          className="absolute top-6 right-6 text-white/50 hover:text-white"
+          onClick={() => setIsMobileMenuOpen(false)}
+        >
+          <RiCloseLine size={32} />
+        </button>
+
+        {navLinks.map((link) => (
           <Link
-            to="/projects"
-            className="nav-link"
-            onClick={() => setIsOpen(false)}
+            key={link.path}
+            to={link.path}
+            onClick={() => setIsMobileMenuOpen(false)}
+            className="text-3xl font-light tracking-widest hover:text-cyan-400 transition-colors"
           >
-            Projects
+            {link.name}
           </Link>
-          <Link
-            to="/music"
-            className="nav-link"
-            onClick={() => setIsOpen(false)}
-          >
-            Music
-          </Link>
-          <Link
-            to="/contact"
-            className="nav-link"
-            onClick={() => setIsOpen(false)}
-          >
-            Contact
-          </Link>
-          <a
-            href="/resume.pdf"
-            className="btn-outline text-sm"
-            target="_blank"
-            rel="noopener noreferrer"
-            onClick={() => setIsOpen(false)}
-          >
-            Resume
-          </a>
-        </div>
-      </motion.div>
-    </motion.nav>
+        ))}
+      </div>
+    </>
   );
 };
 
