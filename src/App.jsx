@@ -8,6 +8,7 @@ import Projects from './pages/Projects';
 
 import ScrollToTop from './components/utils/ScrollToTop';
 
+import Music from './pages/Music';
 import Skills from './pages/Skills';
 
 function App() {
@@ -21,7 +22,7 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/projects" element={<Projects />} />
           <Route path="/skills" element={<Skills />} />
-          {/* <Route path="/music" element={<Music />} /> */}
+          <Route path="/music" element={<Music />} />
           <Route path="/contact" element={<Contact />} />
         </Routes>
       </MainLayout>
