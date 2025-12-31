@@ -9,6 +9,7 @@
   "main": "eslint.config.js",
   "scripts": {
     "dev": "vite",
+    "dev:all": "npx netlify dev",
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview"

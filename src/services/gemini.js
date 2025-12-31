@@ -92,7 +92,11 @@ export const getChatResponse = async (history, message) => {
             })
         });
 
-        if (!response.ok) throw new Error('Network response was not ok');
+        if (!response.ok) {
+            const errorData = await response.json().catch(() => ({}));
+            console.error("Server Error Details:", errorData);
+            throw new Error(errorData.error || 'Network response was not ok');
+        }
         
         const data = await response.json();
         const rawText = data.result;

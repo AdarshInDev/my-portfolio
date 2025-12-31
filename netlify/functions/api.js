@@ -3,7 +3,7 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 
 // Load keys from server-side environment variables
 const envKeys = process.env.GEMINI_API_KEYS || process.env.VITE_GEMINI_API_KEYS || "";
-const API_KEYS = envKeys.split(',').map(key => key.trim()).filter(key => key.length > 0);
+const API_KEYS = envKeys.split(',').map(key => key.trim().replace(/^['"]|['"]$/g, '')).filter(key => key.length > 0);
 
 const getRandomKey = () => {
     if (API_KEYS.length === 0) return null;
@@ -50,7 +50,7 @@ export async function handler(event, context) {
             // Or simpler: just send the whole history as prompt context if short, 
             // but the SDK supports passing history array.
             
-            const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" }); // Default fast model
+            const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" }); // Default fast model
             
             // Inject system prompt into history if needed, or handle it via systemInstruction (newer API)
             // SDK v0.1.0+ supports systemInstruction in model config, but let's stick to standard chat history for compatibility

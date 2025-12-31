@@ -40,7 +40,7 @@ function getRandomKey() {
     if (!envKeys) return null;
     
     // Split by comma, trim whitespace, and filter empty strings
-    const keys = envKeys.split(',').map(key => key.trim()).filter(key => key.length > 0);
+    const keys = envKeys.split(',').map(key => key.trim().replace(/^['"]|['"]$/g, '')).filter(key => key.length > 0);
     
     if (keys.length === 0) return null;
     
