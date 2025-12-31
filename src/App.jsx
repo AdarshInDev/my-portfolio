@@ -8,6 +8,7 @@ import Projects from './pages/Projects';
 
 import ScrollToTop from './components/utils/ScrollToTop';
 
+import Feedback from './pages/Feedback';
 import Music from './pages/Music';
 import Skills from './pages/Skills';
 
@@ -24,6 +25,7 @@ function App() {
           <Route path="/skills" element={<Skills />} />
           <Route path="/music" element={<Music />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/feedback" element={<Feedback />} />
         </Routes>
       </MainLayout>
     </Router>

@@ -3,13 +3,15 @@ import { Link } from 'react-router-dom';
 import Footer from '../components/layout/Footer';
 import BentoGrid from '../components/ui/BentoGrid';
 import HeroChat from '../components/ui/HeroChat';
+import NewsTicker from '../components/ui/NewsTicker';
 
 const Home = () => {
     return (
         <div className="flex flex-col">
+            <NewsTicker />
 
             {/* HERO SECTION */}
-            <div className="min-h-screen flex flex-col justify-center items-start pt-20 relative">
+            <div className="min-h-screen flex flex-col justify-center items-start relative">
 
                 {/* Intro Label */}
                 <motion.div
