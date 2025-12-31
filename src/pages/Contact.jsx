@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 import { FaEnvelope, FaGithub, FaLinkedin, FaPaperPlane, FaTwitter } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
 
 const Contact = () => {
     const navigate = useNavigate();
