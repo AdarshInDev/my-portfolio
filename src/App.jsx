@@ -4,7 +4,6 @@ import Navbar from './components/layout/Navbar';
 import About from './pages/About';
 import Contact from './pages/Contact';
 import Home from './pages/Home';
-import Music from './pages/Music';
 import Projects from './pages/Projects';
 
 import ScrollToTop from './components/utils/ScrollToTop';
@@ -22,7 +21,7 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/projects" element={<Projects />} />
           <Route path="/skills" element={<Skills />} />
-          <Route path="/music" element={<Music />} />
+          {/* <Route path="/music" element={<Music />} /> */}
           <Route path="/contact" element={<Contact />} />
         </Routes>
       </MainLayout>

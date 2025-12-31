@@ -48,7 +48,7 @@ const Navbar = () => {
     { name: 'Trajectory', path: '/about' },
     { name: 'Discoveries', path: '/projects' },
     { name: 'Arsenal', path: '/skills' },
-    { name: 'Audio Logs', path: '/music' },
+    // { name: 'Audio Logs', path: '/music' },
     { name: 'Transmission', path: '/contact' },
   ];
 
