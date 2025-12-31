@@ -7,7 +7,7 @@ const MAINTENANCE_MODE = true;
 
 const StandbyScreen = () => {
     return (
-        <div className="h-screen flex flex-col items-center justify-center relative overflow-hidden">
+        <div className="min-h-screen flex flex-col items-center justify-center relative overflow-hidden bg-black pt-20">
             {/* Background Stars */}
             <div className="absolute inset-0 z-0">
                 {[...Array(20)].map((_, i) => (
@@ -31,7 +31,7 @@ const StandbyScreen = () => {
                 ))}
             </div>
 
-            <div className="z-10 flex flex-col items-center text-center p-6">
+            <div className="z-20 flex flex-col items-center text-center p-6 bg-black/30 backdrop-blur-sm rounded-xl border border-white/5">
 
                 {/* Satellite Animation */}
                 <div className="relative mb-8">
@@ -54,26 +54,17 @@ const StandbyScreen = () => {
                 </div>
 
                 {/* Main Text */}
-                <motion.h2
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="text-4xl md:text-6xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-purple-500 mb-4"
-                >
+                <h2 className="text-4xl md:text-6xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-purple-500 mb-4 shadow-lg">
                     Incoming Transmission
-                </motion.h2>
+                </h2>
 
-                <motion.p
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: 0.3 }}
-                    className="text-gray-400 font-mono tracking-widest text-lg"
-                >
+                <p className="text-gray-400 font-mono tracking-widest text-lg mb-8">
                     AUDIO LOGS WILL ARRIVE SOON
-                </motion.p>
+                </p>
 
                 {/* Spaceship Orbiting */}
                 <motion.div
-                    className="mt-12"
+                    className="mt-4"
                     animate={{ y: [0, -20, 0] }}
                     transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
                 >

@@ -68,6 +68,8 @@ const Navbar = () => {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-6">
+
+
             {/* Search Trigger */}
             <button
               onClick={() => setIsSearchOpen(true)}

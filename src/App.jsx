@@ -9,6 +9,7 @@ import Projects from './pages/Projects';
 import ScrollToTop from './components/utils/ScrollToTop';
 
 import Feedback from './pages/Feedback';
+import Music from './pages/Music';
 import SecretDashboard from './pages/SecretDashboard';
 import Skills from './pages/Skills';
 
@@ -23,6 +24,7 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/projects" element={<Projects />} />
           <Route path="/skills" element={<Skills />} />
+          <Route path="/music" element={<Music />} />
           <Route path="/feedback" element={<Feedback />} />
           <Route path="/dashboard-secret-x9z" element={<SecretDashboard />} />
           <Route path="/contact" element={<Contact />} />
