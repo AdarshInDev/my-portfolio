@@ -1,14 +1,65 @@
 
-// WARNING: Do not hardcode API Keys here.
-// Usage: node src/check_models.js YOUR_API_KEY
-const args = process.argv.slice(2);
-const API_KEY = args[0] || process.env.VITE_GEMINI_API_KEY;
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+// Resolve paths for ES modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Function to load .env manually (since we might not have dotenv installed)
+function loadEnv() {
+    try {
+        const envPath = path.resolve(__dirname, '../.env');
+        if (fs.existsSync(envPath)) {
+            const envConfig = fs.readFileSync(envPath, 'utf-8');
+            envConfig.split(/\r?\n/).forEach(line => {
+                const match = line.match(/^([^=]+)=(.*)$/);
+                if (match) {
+                    const key = match[1].trim();
+                     // Remove quotes if present
+                    const value = match[2].trim().replace(/^['"](.*)['"]$/, '$1');
+                    process.env[key] = value;
+                }
+            });
+            console.log("✅ Loaded environment variables from .env");
+        } else {
+            console.warn("⚠️ No .env file found at project root.");
+        }
+    } catch (error) {
+        console.error("Error loading .env file:", error);
+    }
+}
+
+// Load env vars
+loadEnv();
+
+// Helper to get random key
+function getRandomKey() {
+    const envKeys = process.env.VITE_GEMINI_API_KEYS || "";
+    if (!envKeys) return null;
+    
+    // Split by comma, trim whitespace, and filter empty strings
+    const keys = envKeys.split(',').map(key => key.trim()).filter(key => key.length > 0);
+    
+    if (keys.length === 0) return null;
+    
+    // Pick specific key if passed as arg, else random
+    const argKey = process.argv[2];
+    if (argKey && !argKey.startsWith('--')) return argKey;
+
+    return keys[Math.floor(Math.random() * keys.length)];
+}
+
+const API_KEY = getRandomKey();
 
 if (!API_KEY) {
-    console.error("❌ No API Key provided.");
-    console.log("Usage: node src/check_models.js <YOUR_API_KEY>");
+    console.error("❌ No API Keys found in .env (VITE_GEMINI_API_KEYS) or provided as argument.");
+    console.log("Please ensure your .env file has VITE_GEMINI_API_KEYS=key1,key2...");
     process.exit(1);
 }
+
+console.log(`🔑 Using API Key ending in ...${API_KEY.slice(-4)}`);
 
 async function listModels() {
     console.log("Fetching model list from API...");
