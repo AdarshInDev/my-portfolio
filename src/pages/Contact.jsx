@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { FaEnvelope, FaGithub, FaLinkedin, FaPaperPlane, FaTwitter } from 'react-icons/fa';
 
 const Contact = () => {
+    const navigate = useNavigate();
     const [formState, setFormState] = useState({ name: '', email: '', message: '' });
 
     const handleSubmit = (e) => {
@@ -103,6 +104,21 @@ const Contact = () => {
                         <FaPaperPlane className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
                     </button>
                 </motion.form>
+
+                {/* Secret Access Node */}
+                <div className="flex justify-end mt-2">
+                    <button
+                        onClick={() => {
+                            // Subtle "glitch" sound could go here
+                            navigate('/dashboard-secret-x9z');
+                        }}
+                        className="text-white/5 hover:text-[#f26419] transition-colors p-2 rounded-full hover:bg-white/5 group"
+                        title="Restricted Access"
+                    >
+                        <span className="text-xs group-hover:block hidden font-mono mr-2">ADMIN</span>
+                        🔒
+                    </button>
+                </div>
             </div>
 
         </div>
