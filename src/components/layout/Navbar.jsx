@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { FaGithub, FaLinkedin, FaSearch } from 'react-icons/fa';
 import { RiCloseLine, RiMenu4Line } from 'react-icons/ri';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import GlobalSearch from '../ui/GlobalSearch';
 
 const NavLink = ({ to, children, isActive }) => (

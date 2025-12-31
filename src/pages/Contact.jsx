@@ -14,7 +14,7 @@ const Contact = () => {
     };
 
     return (
-        <div className="pt-32 pb-20 max-w-4xl mx-auto flex flex-col md:flex-row gap-16 px-6">
+        <div className="min-h-screen pt-24 md:pt-32 pb-20 max-w-4xl mx-auto flex flex-col md:flex-row gap-12 md:gap-16 px-6">
 
             {/* Text Side */}
             <div className="md:w-1/2">
