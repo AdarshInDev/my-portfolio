@@ -2,33 +2,36 @@ import { motion } from 'framer-motion';
 import { useEffect, useRef, useState } from 'react';
 import { FaPaperPlane, FaRobot } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
+import { useChat } from '../../context/ChatContext';
 import { getChatResponse } from '../../services/gemini';
 
 const HeroChat = () => {
-    const [isOpen, setIsOpen] = useState(window.innerWidth >= 1024); // Default open on Desktop, closed on Mobile
+    // Use Global Context state
+    const { messages, setMessages, isOpen, setIsOpen } = useChat();
 
-    // Listen for resize to adjust default behavior
-    useEffect(() => {
-        const handleResize = () => {
-            if (window.innerWidth >= 1024) setIsOpen(true);
-        };
-        window.addEventListener('resize', handleResize);
-        return () => window.removeEventListener('resize', handleResize);
-    }, []);
-    const [messages, setMessages] = useState([
-        { role: 'model', text: "System Online. I am Adarsh's AI. Ask me about his skills or projects." }
-    ]);
     const [input, setInput] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const scrollRef = useRef(null);
     const navigate = useNavigate();
+
+    // Set initial open state logic - only run once on mount if needed, 
+    // but better to respect current context state if it was already set.
+    // If context is fresh (e.g. refresh), check window size.
+    useEffect(() => {
+        // Only set default if it hasn't been touched? 
+        // For now, let's just respect the component logic:
+        // If it's the very first load (one message), we can check width.
+        if (messages.length === 1 && window.innerWidth >= 1024) {
+            setIsOpen(true);
+        }
+    }, []);
 
     // Auto-scroll logic
     useEffect(() => {
         if (scrollRef.current) {
             scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
         }
-    }, [messages]);
+    }, [messages, isOpen]); // Add isOpen dependency to scroll when opened
 
     const handleSend = async (e) => {
         e.preventDefault();
@@ -42,19 +45,7 @@ const HeroChat = () => {
         setMessages(newMessages);
         setIsLoading(true);
 
-        // Prepare context for API: Convert simple state to Gemini specific history format if needed, 
-        // but for now our service splits it simply.
-        // We'll pass formatted history if the service supported full multi-turn properly, 
-        // currently the service does a simplified one-shot or restart. 
-        // For true multi-turn, we'd map `messages` to { role: 'user'|'model', parts: [{ text: ... }] }
-        // Let's pass the raw text as a new prompt with history handled by `startChat` if we kept the object alive,
-        // but since `model.startChat` is called every time in the stateless function, we send a concatenation or just the new query.
-        // *Correction*: To keep it simple and robust for this stateless demo, we'll just send the current query.
-        // If we want history, we should refactor the service to accept the history array.
-        // For this iteration, we treat every query as fresh context + system prompt.
-
         const aiResponse = await getChatResponse([], userMsg);
-        // aiResponse is now object { text: "...", suggestion: { label: "...", path: "..." } | null }
 
         setMessages(prev => [...prev, {
             role: 'model',
