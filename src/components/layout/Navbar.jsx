@@ -34,6 +34,7 @@ const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -129,6 +130,16 @@ const Navbar = () => {
             {link.name}
           </Link>
         ))}
+
+        <button
+          onClick={() => {
+            setIsMobileMenuOpen(false);
+            navigate('/dashboard-secret-x9z');
+          }}
+          className="absolute bottom-8 text-white/5 active:text-[#f26419] transition-colors p-4"
+        >
+          🔒
+        </button>
       </div>
     </>
   );
