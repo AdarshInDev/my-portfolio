@@ -1,41 +1,7 @@
-import { GoogleGenerativeAI } from "@google/generative-ai";
+// Client-side service that talks to our secure Netlify Function
+// No API Keys are stored here anymore!
 
-// Initialize the API (We will use a placeholder key for now, User needs to replace it)
-// In a real app, this should be in an env variable like import.meta.env.VITE_GEMINI_API_KEY
-// Array of available API Keys to rotate through
-// Loaded from environment variable (comma separated)
-const envKeys = import.meta.env.VITE_GEMINI_API_KEYS || "";
-const API_KEYS = envKeys.split(',').map(key => key.trim()).filter(key => key.length > 0);
-
-const getRandomKey = () => {
-    if (API_KEYS.length === 0) {
-        console.error("No API Keys found in environment variables!");
-        return "";
-    }
-    return API_KEYS[Math.floor(Math.random() * API_KEYS.length)];
-};
-
-// List of supported reliable models to rotate through
-const MODELS = [
-    "gemini-2.5-flash",
-    "gemini-2.0-flash",
-    "gemini-2.5-flash-lite", // Extremely fast/cheap
-    // "gemini-1.5-flash", // Fallback classic
-];
-
-const getRandomModel = () => {
-    return MODELS[Math.floor(Math.random() * MODELS.length)];
-};
-
-const getModel = () => {
-    const key = getRandomKey();
-    const modelName = getRandomModel();
-    console.log(`Using Key ending in ...${key.slice(-4)} with Model: ${modelName}`);
-    
-    // Safety check: ensure genAI instance is fresh
-    const genAI = new GoogleGenerativeAI(key);
-    return genAI.getGenerativeModel({ model: modelName });
-};
+const ENDPOINT = '/.netlify/functions/api';
 
 const SYSTEM_PROMPT = `
 You are the AI interface for Adarsh Pradhan's portfolio website "AdarshInDev".
@@ -65,7 +31,6 @@ Example valid response:
   "confidence": 0.95
 }
 `;
-
 
 const CHAT_SYSTEM_PROMPT = `
 You are the AI Assistant for Adarsh Pradhan's portfolio "AdarshInDev".
@@ -100,59 +65,66 @@ IMPORTANT: You must return a JSON object (NO MARKDOWN) with this structure:
 If no relevant page logic applies, set "suggestion" to null.
 `;
 
+// Helper to clean JSON
+const parseCleanJSON = (text) => {
+    try {
+        const cleanJson = text.replace(/```json/g, '').replace(/```/g, '').trim();
+        return JSON.parse(cleanJson);
+    } catch (e) {
+        console.warn("JSON Parse Error:", e, text);
+        return null;
+    }
+};
+
 export const getChatResponse = async (history, message) => {
     try {
-        if (API_KEYS.length === 0) return { text: "System Offline (No Keys).", suggestion: null };
-
-        const model = getModel();
-        const chat = model.startChat({
-            history: history, 
+        // Send request to our proxy
+        const response = await fetch(ENDPOINT, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                action: 'chat',
+                payload: {
+                    history: history, // Send full history context to backend
+                    message: message,
+                    systemPrompt: CHAT_SYSTEM_PROMPT
+                }
+            })
         });
 
-        // Send system instruction as first context if history is empty
-        let prompt = message;
-        if (history.length === 0) {
-            prompt = `${CHAT_SYSTEM_PROMPT}\n\nVisitor Question: "${message}"`;
-        } else {
-             // Re-inject structure reminder on subsequent turns to prevent drift
-             prompt = `${message}\n(Remember to reply in JSON format with 'text' and 'suggestion')`;
-        }
-
-        const result = await chat.sendMessage(prompt);
-        const response = await result.response;
-        const rawText = response.text();
+        if (!response.ok) throw new Error('Network response was not ok');
         
-        try {
-            // Clean markdown if present
-            const cleanJson = rawText.replace(/```json/g, '').replace(/```/g, '').trim();
-            return JSON.parse(cleanJson);
-        } catch (e) {
-            console.warn("AI failed to return JSON, falling back to text", rawText);
-            return { text: rawText, suggestion: null };
-        }
+        const data = await response.json();
+        const rawText = data.result;
+
+        const parsed = parseCleanJSON(rawText);
+        if (parsed) return parsed;
+        
+        return { text: rawText, suggestion: null };
 
     } catch (error) {
         console.error("Chat Error:", error);
-        return { text: "Connection interrupted. Realigning antennas...", suggestion: null };
+        return { text: "Connection interrupted. Realigning antennas... (Check API Config)", suggestion: null };
     }
 };
 
 export const getNavigationIntent = async (query) => {
   try {
-    // If no keys, mock a response for demo purposes
-    if (API_KEYS.length === 0) {
-        console.warn("Gemini API Keys missing. Using mock response.");
-        return mockResponse(query);
-    }
+    const response = await fetch(ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            action: 'navigate',
+            payload: {
+                query: query,
+                systemPrompt: SYSTEM_PROMPT
+            }
+        })
+    });
 
-    const model = getModel();
-    const result = await model.generateContent(`${SYSTEM_PROMPT}\n\nUser Query: "${query}"\nResponse:`);
-    const response = await result.response;
-    const text = response.text();
-    
-    // Clean up potential markdown formatting
-    const jsonStr = text.replace(/```json/g, '').replace(/```/g, '').trim();
-    return JSON.parse(jsonStr);
+    const data = await response.json();
+    const result = parseCleanJSON(data.result);
+    return result || { path: null, label: "Signal Lost...", confidence: 0 };
 
   } catch (error) {
     console.error("Gemini AI Error:", error);
@@ -160,11 +132,3 @@ export const getNavigationIntent = async (query) => {
   }
 };
 
-const mockResponse = (query) => {
-    const q = query.toLowerCase();
-    if (q.includes('pro') || q.includes('work') || q.includes('app')) return { path: '/projects', label: 'Accessing Project Archives', confidence: 0.9 };
-    if (q.includes('about') || q.includes('who') || q.includes('bio')) return { path: '/about', label: 'Retrieving Pilot Data', confidence: 0.9 };
-    if (q.includes('contact') || q.includes('email') || q.includes('hire')) return { path: '/contact', label: 'Opening Transmission Channel', confidence: 0.9 };
-    if (q.includes('music') || q.includes('song')) return { path: '/music', label: 'Loading Audio Logs', confidence: 0.9 };
-    return { path: '/', label: 'Returning to Base', confidence: 0.8 };
-}
