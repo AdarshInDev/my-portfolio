@@ -1,5 +1,14 @@
 
-const API_KEY = "AIzaSyAam5URkwtoYEkYcj5GRqjDROCwC780rQ8"; 
+// WARNING: Do not hardcode API Keys here.
+// Usage: node src/check_models.js YOUR_API_KEY
+const args = process.argv.slice(2);
+const API_KEY = args[0] || process.env.VITE_GEMINI_API_KEY;
+
+if (!API_KEY) {
+    console.error("❌ No API Key provided.");
+    console.log("Usage: node src/check_models.js <YOUR_API_KEY>");
+    process.exit(1);
+}
 
 async function listModels() {
     console.log("Fetching model list from API...");

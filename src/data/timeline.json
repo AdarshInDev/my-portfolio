@@ -1,44 +1,30 @@
 [
     {
-        "year": "2018",
-        "title": "Ignition",
-        "subtitle": "Started Coding Journey",
-        "description": "Wrote my first line of code in Python. The universe of logic opened up.",
-        "icon": "Ignition"
-    },
-    {
-        "year": "2019",
-        "title": "First Orbit",
-        "subtitle": "Frontend Internship @ Tech Corp",
-        "description": "Learned the gravity of production code. Built my first React interfaces.",
-        "icon": "Orbit"
-    },
-    {
-        "year": "2020",
-        "title": "Academic Sector",
-        "subtitle": "Bachelor's Degree in CSE",
-        "description": "Deep dived into algorithms, data structures, and computer architecture.",
+        "year": "2021",
+        "title": "Academic Initiation",
+        "subtitle": "B.Tech in CSE @ ADGIPS",
+        "description": "Commenced Deep Dive into Computer Science Engineering. Established strong foundation in C++, Java, and Data Structures (CGPA: 9.11/10).",
         "icon": "Academy"
     },
     {
-        "year": "2021",
-        "title": "Launch",
-        "subtitle": "Full Stack Developer @ StartupX",
-        "description": "Deployed scalable systems. Mastered the MERN stack.",
-        "icon": "Launch"
+        "year": "2024 (May-Oct)",
+        "title": "Internship Protocol",
+        "subtitle": "IT Intern @ MPS Infotecnics",
+        "description": "Engineered web and mobile solutions using Flutter. Optimized UI/UX workflows and managed backend integrations for multi-user engagement apps.",
+        "icon": "Orbit"
     },
     {
-        "year": "2022",
-        "title": "Command",
-        "subtitle": "Led Development Team",
-        "description": "Managed a squadron of 5 developers. Focused on architecture and code quality.",
-        "icon": "Command"
-    },
-    {
-        "year": "2023-Present",
-        "title": "Interstellar",
-        "subtitle": "Freelancing & Consulting",
-        "description": "Architecting solutions for global clients. Exploring AI and Web3 frontiers.",
+        "year": "2024-Present",
+        "title": "Freelance Orbit",
+        "subtitle": "Flutter Frontend Developer",
+        "description": "Architecting intuitive mobile experiences. Integrating complex APIs (Provider, Bloc) and delivering scalable custom solutions for diverse clients.",
         "icon": "Star"
+    },
+    {
+        "year": "2025-Present",
+        "title": "Enterprise Deployment",
+        "subtitle": "Programmer Analyst Trainee @ Cognizant",
+        "description": "Specializing in Salesforce CRM Administration & Development (Apex, LWC, Visualforce). Building enterprise-grade cloud solutions.",
+        "icon": "Launch"
     }
 ]

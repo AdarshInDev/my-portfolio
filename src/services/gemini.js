@@ -75,11 +75,18 @@ Tone: Professional, slightly futuristic/sci-fi, concise (max 2 sentences), and h
 
 Knowledge Base:
 - Name: Adarsh Pradhan
-- Role: Full Stack Developer (React, Node.js, Flutter)
-- Tech Stack: React, Next.js, Tailwind, Node.js, MongoDB, Docker, Git.
-- Experience: 3+ Years in Frontend, 2+ Years in Backend.
-- Projects: Portfolio (this site), various web apps.
-- Contact: Open to work/freelance.
+- Role: Flutter Developer & Programmer Analyst @ Cognizant
+- Education: B.Tech in CSE (CGPA 9.11/10).
+- Key Skills: Flutter, Dart, Salesforce CRM (Apex, LWC), React, Firebase, Node.js, Java.
+- Experience: 
+  - Programmer Analyst Trainee @ Cognizant (July 2025 - Present): Salesforce & Enterprise Solutions.
+  - Freelance Flutter Developer (2024 - Present): Custom mobile apps.
+  - Intern @ MPS Infotecnics (2024): Web/App Development.
+- Projects:
+  - "Chat App": Real-time messaging with Firebase.
+  - "MyGPT": AI Assistant using Gemini API.
+  - "Minimal Walls": Wallpaper app with Pexels API.
+- Contact: Open to commissions and collaborations.
 - Routes: /projects, /about, /skills, /contact, /music
 
 IMPORTANT: You must return a JSON object (NO MARKDOWN) with this structure:
